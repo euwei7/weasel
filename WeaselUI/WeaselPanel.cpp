@@ -1007,7 +1007,7 @@ void WeaselPanel::DoPaint(CDCHandle dc) {
         btmys[i] = rects[i].bottom;
       }
       if (m_candidateCount) {
-        if (!m_ctx.preedit.str.empty())
+        if (!m_layout->IsInlinePreedit() && !m_ctx.preedit.str.empty())
           m_offsety_preedit =
               rects[m_candidateCount - 1].bottom - preeditrc.bottom;
         if (!m_ctx.aux.str.empty())
@@ -1019,7 +1019,7 @@ void WeaselPanel::DoPaint(CDCHandle dc) {
       int base_gap = 0;
       if (!m_ctx.aux.str.empty())
         base_gap = auxrc.Height() + m_style.spacing;
-      else if (!m_ctx.preedit.str.empty())
+      else if (!m_layout->IsInlinePreedit() && !m_ctx.preedit.str.empty())
         base_gap = preeditrc.Height() + m_style.spacing;
 
       for (auto i = 0; i < m_candidateCount && i < MAX_CANDIDATES_COUNT; ++i) {
@@ -1047,7 +1047,7 @@ void WeaselPanel::DoPaint(CDCHandle dc) {
         auxrc.OffsetRect(0, m_offsety_aux);
       drawn |= _DrawPreeditBack(m_ctx.aux, memDC, auxrc);
     }
-    if (!m_ctx.preedit.str.empty()) {
+    if (!m_layout->IsInlinePreedit() && !m_ctx.preedit.str.empty()) {
       if (m_istorepos)
         preeditrc.OffsetRect(0, m_offsety_preedit);
       drawn |= _DrawPreeditBack(m_ctx.preedit, memDC, preeditrc);
@@ -1067,7 +1067,7 @@ void WeaselPanel::DoPaint(CDCHandle dc) {
     if (!m_ctx.aux.str.empty())
       drawn |= _DrawPreedit(m_ctx.aux, memDC, auxrc);
     // draw preedit string
-    if (!m_ctx.preedit.str.empty())
+    if (!m_layout->IsInlinePreedit() && !m_ctx.preedit.str.empty())
       drawn |= _DrawPreedit(m_ctx.preedit, memDC, preeditrc);
     // draw candidates string
     if (m_candidateCount)
@@ -1092,7 +1092,8 @@ void WeaselPanel::DoPaint(CDCHandle dc) {
       CRect iconRect(m_layout->GetStatusIconRect());
       if (m_istorepos && !m_ctx.aux.str.empty())
         iconRect.OffsetRect(0, m_offsety_aux);
-      else if (m_istorepos && !m_ctx.preedit.str.empty())
+      else if (m_istorepos && !m_layout->IsInlinePreedit() &&
+               !m_ctx.preedit.str.empty())
         iconRect.OffsetRect(0, m_offsety_preedit);
 
       CIcon& icon(

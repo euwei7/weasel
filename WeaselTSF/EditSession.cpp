@@ -21,7 +21,7 @@ STDAPI WeaselTSF::DoEditSession(TfEditCookie ec) {
       // Commit and close the original composition first.
       if (!_IsComposing()) {
         _StartComposition(_pEditSessionContext,
-                          _fCUASWorkaroundEnabled && !config.inline_preedit);
+                          _fCUASWorkaroundEnabled && false);
       }
       _InsertText(_pEditSessionContext, commit);
       _EndComposition(_pEditSessionContext, false);
@@ -30,12 +30,11 @@ STDAPI WeaselTSF::DoEditSession(TfEditCookie ec) {
       _committed = FALSE;
     }
     if (_status.composing && !_IsComposing()) {
-      _StartComposition(_pEditSessionContext,
-                        _fCUASWorkaroundEnabled && !config.inline_preedit);
+      _StartComposition(_pEditSessionContext, _fCUASWorkaroundEnabled && false);
     } else if (!_status.composing && _IsComposing()) {
       _EndComposition(_pEditSessionContext, true);
     }
-    if (_IsComposing() && config.inline_preedit) {
+    if (_IsComposing()) {
       _ShowInlinePreedit(_pEditSessionContext, context);
     }
     _UpdateCompositionWindow(_pEditSessionContext);
