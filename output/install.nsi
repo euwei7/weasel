@@ -236,6 +236,7 @@ program_files:
   File "rime-install-config.bat"
   File "start_service.bat"
   File "stop_service.bat"
+  File "sendKeyCode.dll"
   File "weasel.dll"
   ${If} ${RunningX64}
     File "weaselx64.dll"
