@@ -131,8 +131,8 @@ struct Context {
            commit_cand.empty();
   }
   bool operator==(const Context& ctx) {
-    if (preedit == ctx.preedit&& aux == ctx.aux&& cinfo ==
-            ctx.cinfo&& commit_cand = ctx.commit_cand)
+    if (preedit == ctx.preedit && aux == ctx.aux && cinfo == ctx.cinfo &&
+        commit_cand == ctx.commit_cand)
       return true;
     return false;
   }
@@ -140,7 +140,8 @@ struct Context {
 
   bool operator!() {
     if (preedit.str.empty() && aux.str.empty() && cinfo.candies.empty() &&
-        cinfo.labels.empty() && cinfo.comments.empty() && commit_cand.empty())
+        cinfo.labels.empty() && cinfo.comments.empty() &&
+        commit_cand.str.empty())
       return true;
     else
       return false;
