@@ -266,7 +266,7 @@ class CInlinePreeditEditSession : public CEditSession {
 };
 
 STDAPI CInlinePreeditEditSession::DoEditSession(TfEditCookie ec) {
-  std::wstring preedit = _context->preedit.str;
+  std::wstring preedit = _context->commit_cand.str;
 
   com_ptr<ITfRange> pRangeComposition;
   if (_pComposition == nullptr)

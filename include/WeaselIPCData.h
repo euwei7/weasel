@@ -124,10 +124,15 @@ struct Context {
     preedit.clear();
     aux.clear();
     cinfo.clear();
+    commit_cand.clear();
   }
-  bool empty() const { return preedit.empty() && aux.empty() && cinfo.empty(); }
+  bool empty() const {
+    return preedit.empty() && aux.empty() && cinfo.empty() &&
+           commit_cand.empty();
+  }
   bool operator==(const Context& ctx) {
-    if (preedit == ctx.preedit && aux == ctx.aux && cinfo == ctx.cinfo)
+    if (preedit == ctx.preedit&& aux == ctx.aux&& cinfo ==
+            ctx.cinfo&& commit_cand = ctx.commit_cand)
       return true;
     return false;
   }
@@ -135,13 +140,14 @@ struct Context {
 
   bool operator!() {
     if (preedit.str.empty() && aux.str.empty() && cinfo.candies.empty() &&
-        cinfo.labels.empty() && cinfo.comments.empty())
+        cinfo.labels.empty() && cinfo.comments.empty() && commit_cand.empty())
       return true;
     else
       return false;
   }
   Text preedit;
   Text aux;
+  Text commit_cand;
   CandidateInfo cinfo;
 };
 // for icon type in tip

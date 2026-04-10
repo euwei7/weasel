@@ -825,6 +825,7 @@ bool RimeWithWeaselHandler::_Respond(WeaselSessionId ipc_id, EatLine eat) {
           body.append(L"ctx.preedit=")
               .append(escape_string(u8tow(preedit)))
               .append(L"\n");
+
           if (start <= end) {
             body.append(L"ctx.preedit.cursor=")
                 .append(u8towstring(preedit, start))
@@ -833,6 +834,14 @@ bool RimeWithWeaselHandler::_Respond(WeaselSessionId ipc_id, EatLine eat) {
                 .append(L",")
                 .append(u8towstring(preedit, cursor))
                 .append(L"\n");
+          }
+
+          if (ctx.commit_text_preview) {
+            const char* first_utf8 = ctx.commit_text_preview;
+            const size_t first_len = std::strlen(first_utf8);
+            const std::wstring first_w = escape_string(u8tow(first_utf8));
+            const std::wstring tmp = u8towstring(first_utf8, (int)first_len);
+            body.append(L"ctx.commit_cand=").append(first_w).append(L"\n");
           }
           break;
         }

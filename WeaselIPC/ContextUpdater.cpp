@@ -27,6 +27,10 @@ void ContextUpdater::Store(Deserializer::KeyType const& k,
     _StoreText(m_pTarget->p_context->preedit, k, value);
     return;
   }
+  if (k[1] == L"commit_cand") {
+    _StoreText(m_pTarget->p_context->commit_cand, k, value);
+    return;
+  }
 
   if (k[1] == L"aux") {
     _StoreText(m_pTarget->p_context->aux, k, value);
