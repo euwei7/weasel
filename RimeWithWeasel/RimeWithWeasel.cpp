@@ -838,9 +838,7 @@ bool RimeWithWeaselHandler::_Respond(WeaselSessionId ipc_id, EatLine eat) {
 
           if (ctx.commit_text_preview) {
             const char* first_utf8 = ctx.commit_text_preview;
-            const size_t first_len = std::strlen(first_utf8);
             const std::wstring first_w = escape_string(u8tow(first_utf8));
-            const std::wstring tmp = u8towstring(first_utf8, (int)first_len);
             body.append(L"ctx.commit_cand=").append(first_w).append(L"\n");
           }
           break;
