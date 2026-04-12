@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Update Appcast
-        if: ${{ github.repository == 'rime/weasel' }}
+        if: ${{ github.repository == 'euwei7/weasel' }}
         run: gh workflow run gh-pages.yml -R rime/home --ref master
         env:
           GH_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
